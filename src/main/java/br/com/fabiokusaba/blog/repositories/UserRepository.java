@@ -1,5 +1,6 @@
 package br.com.fabiokusaba.blog.repositories;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +10,7 @@ import br.com.fabiokusaba.blog.domain.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
+
+    Optional<User> findByEmail(String email);
 
 }
