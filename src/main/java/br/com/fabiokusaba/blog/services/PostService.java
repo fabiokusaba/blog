@@ -1,5 +1,6 @@
 package br.com.fabiokusaba.blog.services;
 
+import br.com.fabiokusaba.blog.domain.CreatePostRequest;
 import br.com.fabiokusaba.blog.domain.entities.Post;
 import br.com.fabiokusaba.blog.domain.entities.User;
 
@@ -10,4 +11,5 @@ public interface PostService {
 
     List<Post> getAllPosts(UUID categoryId, UUID tagId);
     List<Post> getDraftPosts(User user);
+    Post createPost(User user, CreatePostRequest createPostRequest);
 }
