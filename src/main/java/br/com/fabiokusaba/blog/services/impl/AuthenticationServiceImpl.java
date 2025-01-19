@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,6 +51,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             .setExpiration(new Date(System.currentTimeMillis() + jwtExpiryMs))
             .signWith(getSigningKey(), SignatureAlgorithm.HS256)
             .compact();
+    }
+
+    @Override
+    public UserDetails validateToken(String token) {
+        String username = extractUsername(token);
+        return userDetailsService.loadUserByUsername(username);
+    }
+
+    private String extractUsername(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 
     private Key getSigningKey() {
