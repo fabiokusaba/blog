@@ -1,8 +1,10 @@
 package br.com.fabiokusaba.blog.controllers;
 
 import br.com.fabiokusaba.blog.domain.CreatePostRequest;
+import br.com.fabiokusaba.blog.domain.UpdatePostRequest;
 import br.com.fabiokusaba.blog.domain.dtos.CreatePostRequestDTO;
 import br.com.fabiokusaba.blog.domain.dtos.PostDTO;
+import br.com.fabiokusaba.blog.domain.dtos.UpdatePostRequestDTO;
 import br.com.fabiokusaba.blog.domain.entities.Post;
 import br.com.fabiokusaba.blog.domain.entities.User;
 import br.com.fabiokusaba.blog.mappers.PostMapper;
@@ -55,5 +57,16 @@ public class PostController {
         Post createdPost = postService.createPost(loggedInUser, createPostRequest);
         PostDTO createdPostDTO = postMapper.toPostDTO(createdPost);
         return new ResponseEntity<>(createdPostDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<PostDTO> updatePost(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdatePostRequestDTO updatePostRequestDTO) {
+
+        UpdatePostRequest updatePostRequest = postMapper.toUpdatePostRequest(updatePostRequestDTO);
+        Post updatedPost = postService.updatePost(id, updatePostRequest);
+        PostDTO updatedPostDTO = postMapper.toPostDTO(updatedPost);
+        return ResponseEntity.ok(updatedPostDTO);
     }
 }

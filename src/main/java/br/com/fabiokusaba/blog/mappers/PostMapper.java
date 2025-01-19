@@ -1,8 +1,10 @@
 package br.com.fabiokusaba.blog.mappers;
 
 import br.com.fabiokusaba.blog.domain.CreatePostRequest;
+import br.com.fabiokusaba.blog.domain.UpdatePostRequest;
 import br.com.fabiokusaba.blog.domain.dtos.CreatePostRequestDTO;
 import br.com.fabiokusaba.blog.domain.dtos.PostDTO;
+import br.com.fabiokusaba.blog.domain.dtos.UpdatePostRequestDTO;
 import br.com.fabiokusaba.blog.domain.entities.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,4 +19,6 @@ public interface PostMapper {
     PostDTO toPostDTO(Post post);
 
     CreatePostRequest toCreatePostRequest(CreatePostRequestDTO dto);
+
+    UpdatePostRequest toUpdatePostRequest(UpdatePostRequestDTO dto);
 }
