@@ -69,4 +69,11 @@ public class PostController {
         PostDTO updatedPostDTO = postMapper.toPostDTO(updatedPost);
         return ResponseEntity.ok(updatedPostDTO);
     }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PostDTO> getPost(@PathVariable UUID id) {
+        Post post = postService.getPost(id);
+        PostDTO postDTO = postMapper.toPostDTO(post);
+        return ResponseEntity.ok(postDTO);
+    }
 }
