@@ -3,6 +3,7 @@ package br.com.fabiokusaba.blog.services.impl;
 import br.com.fabiokusaba.blog.domain.entities.Category;
 import br.com.fabiokusaba.blog.domain.entities.Post;
 import br.com.fabiokusaba.blog.domain.entities.Tag;
+import br.com.fabiokusaba.blog.domain.entities.User;
 import br.com.fabiokusaba.blog.domain.enums.PostStatus;
 import br.com.fabiokusaba.blog.repositories.PostRepository;
 import br.com.fabiokusaba.blog.services.CategoryService;
@@ -54,5 +55,10 @@ public class PostServiceImpl implements PostService {
         }
 
         return postRepository.findAllByStatus(PostStatus.PUBLISHED);
+    }
+
+    @Override
+    public List<Post> getDraftPosts(User user) {
+        return postRepository.findAllByAuthorAndStatus(user, PostStatus.DRAFT);
     }
 }
