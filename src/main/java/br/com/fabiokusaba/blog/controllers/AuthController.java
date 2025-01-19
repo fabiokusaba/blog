@@ -13,7 +13,7 @@ import br.com.fabiokusaba.blog.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(path = "/api/v1/auth")
+@RequestMapping(path = "/api/v1/auth/login")
 @RequiredArgsConstructor
 public class AuthController {
 
