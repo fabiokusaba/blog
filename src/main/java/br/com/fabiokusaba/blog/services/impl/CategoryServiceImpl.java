@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.fabiokusaba.blog.domain.entities.Category;
@@ -43,4 +44,9 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    @Override
+    public Category getCategoryById(UUID id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with id " + id));
+    }
 }

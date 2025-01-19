@@ -1,7 +1,7 @@
 package br.com.fabiokusaba.blog.controllers;
 
 import br.com.fabiokusaba.blog.domain.dtos.CreateTagsRequest;
-import br.com.fabiokusaba.blog.domain.dtos.TagResponse;
+import br.com.fabiokusaba.blog.domain.dtos.TagDTO;
 import br.com.fabiokusaba.blog.domain.entities.Tag;
 import br.com.fabiokusaba.blog.mappers.TagMapper;
 import br.com.fabiokusaba.blog.services.TagService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/v1/tags")
@@ -24,18 +23,18 @@ public class TagController {
     private final TagMapper tagMapper;
 
     @GetMapping
-    public ResponseEntity<List<TagResponse>> getAllTags() {
+    public ResponseEntity<List<TagDTO>> getAllTags() {
         List<Tag> tags = tagService.getTags();
-        List<TagResponse> tagsResponses = tags.stream().map(tagMapper::toTagResponse).toList();
+        List<TagDTO> tagsResponses = tags.stream().map(tagMapper::toTagResponse).toList();
         return ResponseEntity.ok(tagsResponses);
     }
 
     @PostMapping
-    public ResponseEntity<List<TagResponse>> createTags(@Valid @RequestBody CreateTagsRequest createTagsRequest) {
+    public ResponseEntity<List<TagDTO>> createTags(@Valid @RequestBody CreateTagsRequest createTagsRequest) {
         List<Tag> savedTags = tagService.createTags(createTagsRequest.getNames());
-        List<TagResponse> createdTagResponses = savedTags.stream().map(tagMapper::toTagResponse).toList();
+        List<TagDTO> createdTagRespons = savedTags.stream().map(tagMapper::toTagResponse).toList();
         return new ResponseEntity<>(
-                createdTagResponses,
+                createdTagRespons,
                 HttpStatus.CREATED
         );
     }
